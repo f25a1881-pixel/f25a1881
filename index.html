@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus in Malaysian Aquaculture: Red Tilapia Growth Kinetics</title>
+    <!-- Tailwind CSS for robust styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- KaTeX for beautiful, accessible LaTeX math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- App Header Banner -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 text-xs font-semibold bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20">
+                        SFM: Food Security (Malaysia)
+                    </span>
+                    <span class="px-2.5 py-1 text-xs font-semibold bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">
+                        Bioscience Calculus Sandbox
+                    </span>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tight text-white mt-1.5">
+                    Kinetics of Protein Production: Aquaculture Growth Derivative Model
+                </h1>
+                <p class="text-xs text-slate-400 mt-1">
+                    Applying Differential Calculus to Optimize Feed Conversion Ratios (FCR) in Malaysian River Cage Cultures
+                </p>
+            </div>
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-right max-w-sm hidden lg:block">
+                <span class="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">Baseline Empirical Data Source</span>
+                <a href="https://pertanika.upm.edu.my/" target="_blank" class="text-emerald-400 hover:underline text-xs font-bold block mt-0.5">
+                    Pertanika Journal of Tropical Agricultural Science (UPM)
+                </a>
+                <span class="text-[10px] text-slate-500 italic block mt-0.5">"Growth Performance of Oreochromis niloticus in Pahang River Systems"</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Interactive Area -->
+    <main class="max-w-7xl mx-auto w-full p-4 md:p-6 lg:p-8 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Side: Interactive Readout and Problem Formulation -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Bioscience Context Explanation -->
+            <div class="bg-slate-950/40 border border-slate-800/80 rounded-2xl p-5 shadow-xl">
+                <h2 class="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-9-4.5h.008v.008H6V6.75zm0 3h.008v.008H6V9.75zm0 3h.008v.008H6v-.008zm0 3h.008v.008H6v-.008zm3-6h.008v.008h-.008V9.75zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zM15 6.75h.008v.008H15V6.75zm0 3h.008v.008H15V9.75z"></path></svg>
+                    The Malaysian Food Security Context
+                </h2>
+                <div class="mt-3 text-xs text-slate-300 space-y-2 leading-relaxed">
+                    <p>
+                        Under Malaysia's <strong class="text-slate-100">National Agrofood Policy 2.0 (DAN 2.0)</strong>, aquaculture is marked as a critical high-growth sector to meet the target Self-Sufficiency Level (SSL) for fish proteins. Feed costs account for up to <strong class="text-amber-400">70% of total production costs</strong> in Red Tilapia cage farming.
+                    </p>
+                    <p>
+                        A central challenge in bioscience resource planning is modeling growth velocity. Farmers cannot easily determine when growth rate peaks by looking at cumulative weight graphs. By using the <strong class="text-emerald-400">first derivative \( f'(x) \)</strong> of the logistic biomass curve, bioengineers can locate the exact <strong class="text-amber-400">Inflection Point</strong>—the precise moment of maximum growth velocity.
+                    </p>
+                    <p class="border-t border-slate-800/60 pt-2 text-slate-400 text-[11px] italic">
+                        By matching feeding regimes to peak metabolic growth windows, feed waste is minimized, pollution in aquatic ecosystems is mitigated, and harvest windows are scientifically optimized.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mathematical Formulations -->
+            <div class="bg-slate-950/40 border border-slate-800/80 rounded-2xl p-5 shadow-xl">
+                <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    Kinetics Equations
+                </h2>
+                
+                <div class="space-y-4">
+                    <!-- Base Function -->
+                    <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl">
+                        <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-wider">Cumulative Fish Biomass \( f(x) \)</span>
+                        <div class="text-sm font-semibold my-1.5 text-center text-slate-100 py-1 bg-slate-950/40 rounded border border-slate-800/40">
+                            $$f(x) = \frac{600}{1 + e^{-0.25(x - 12)}}$$
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                            Where <span class="text-slate-200 font-mono">x</span> is timeline in weeks, and <span class="text-slate-200 font-mono">f(x)</span> is weight in grams per fish. Asymptote boundary limits size to <span class="text-emerald-400 font-semibold">600g</span>.
+                        </p>
+                    </div>
+
+                    <!-- Derivative Function -->
+                    <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-xl">
+                        <span class="text-[10px] uppercase font-bold text-amber-400 tracking-wider">Instantaneous Growth Velocity \( f'(x) \)</span>
+                        <div class="text-sm font-semibold my-1.5 text-center text-slate-100 py-1 bg-slate-950/40 rounded border border-slate-800/40">
+                            $$f'(x) = \frac{150 \cdot e^{-0.25(x - 12)}}{\left(1 + e^{-0.25(x - 12)}\right)^2}$$
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                            The derivative calculates growth speed in <strong class="text-slate-200">grams per week</strong>, identifying peak metabolism points.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Evaluation Card -->
+            <div id="interactiveCard" class="bg-gradient-to-br from-slate-950 to-emerald-950 border-2 border-slate-800 rounded-2xl p-5 shadow-2xl relative overflow-hidden transition-all duration-300">
+                <div class="absolute -top-12 -right-12 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
+                
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] uppercase font-extrabold text-emerald-400 tracking-wider">Selected Model Coordinate</span>
+                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase">Live Output</span>
+                </div>
+
+                <!-- Fallback prompt shown before first click -->
+                <div id="readoutPrompt" class="my-6 text-center text-slate-400 text-xs py-4 border border-dashed border-slate-800 rounded-xl bg-slate-900/30">
+                    <svg class="w-8 h-8 text-slate-500 mx-auto mb-2 animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 9.152c.582.448 1.148.89 1.676 1.345m-1.676-1.345c-.58-.447-1.143-.887-1.666-1.33m1.666 1.33V9.25m-1.666-1.33V6.25M16.718 10.5c.507.433.974.853 1.402 1.259m-1.402-1.259c-.506-.433-.968-.847-1.383-1.24m1.383 1.24v1.125m-1.383-1.24V8.125m1.383 4.315a48.353 48.353 0 011.665 1.705m-1.665-1.705a48.406 48.406 0 00-1.666-1.706m1.666 1.706v1.125m-1.666-2.831v1.125m-1.847 4.904a48.37 48.37 0 01-1.666-1.706m1.666 1.706c-.58.447-1.143.887-1.666 1.33m0-1.33v1.125m-1.666-2.455c-.506-.433-.968-.847-1.383-1.24m1.383 1.24a48.414 48.414 0 01-1.666-1.706m1.666 2.831v1.125m-1.666-2.831v1.125m-1.847 4.904c-.58-.447-1.148-.89-1.676-1.345m1.676 1.345a48.3 48.3 0 01-1.665-1.705m1.665 2.83v1.125M10.5 13.5h.008v.008H10.5V13.5zm0-2.25h.008v.008H10.5V11.25zm0-2.25h.008v.008H10.5V9zm2.25 4.5h.008v.008h-.008V13.5zm0-2.25h.008v.008h-.008V11.25zm0-2.25h.008v.008h-.008V9zm2.25 4.5h.008v.008H15V13.5zm0-2.25h.008v.008H15V11.25zm0-2.25h.008v.008H15V9z"></path></svg>
+                    <span>Click anywhere on the graph to display calculated derivative metrics &amp; bio-explanations.</span>
+                </div>
+
+                <!-- Dynamic output area, populated via JS -->
+                <div id="readoutData" class="hidden mt-4 space-y-4">
+                    <div class="flex items-end justify-between border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Culture Timeline</span>
+                            <span id="displayWeek" class="text-2xl font-black text-white">Week 12.0</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 block">Calculated Slope</span>
+                            <span class="text-xs text-amber-400 font-mono" id="slopeFormula">f'(12.0) = 37.50</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-900/80 border border-slate-800/80 p-3 rounded-xl">
+                            <span class="text-[10px] text-slate-400 block font-semibold uppercase">Fish Weight f(x)</span>
+                            <span id="displayWeight" class="text-xl font-bold text-emerald-400">300.0g</span>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800/80 p-3 rounded-xl">
+                            <span class="text-[10px] text-slate-400 block font-semibold uppercase">Growth Velocity f'(x)</span>
+                            <span id="displayVelocity" class="text-xl font-bold text-amber-400">37.5g / week</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900/40 border border-slate-800 p-3.5 rounded-xl">
+                        <span class="text-[10px] text-amber-400 uppercase font-bold tracking-wider block mb-1">Biological Feed Interpretation</span>
+                        <p id="laymanExplanation" class="text-xs text-slate-200 leading-relaxed">
+                            Loading calculations...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Side: Graphic Visualizer Dashboard -->
+        <div class="lg:col-span-7 bg-slate-950/40 border border-slate-800/80 rounded-2xl p-4 md:p-6 shadow-xl flex flex-col justify-between">
+            <div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Growth Kinetic Curves &amp; Derivatives
+                        </h2>
+                        <p class="text-xs text-slate-400">Click graph plot to evaluate change rates across the 24-week timeline</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 text-xs font-semibold">
+                        <span class="flex items-center gap-2">
+                            <span class="w-3 h-0.5 bg-emerald-500 inline-block"></span>
+                            <span class="text-slate-300 text-[11px]">Weight (Left Y)</span>
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="w-3 h-0.5 border-t border-dashed border-amber-500 inline-block"></span>
+                            <span class="text-slate-300 text-[11px]">Velocity (Right Y)</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Chart Canvas Container -->
+                <div class="relative h-[280px] sm:h-[350px] lg:h-[400px] w-full">
+                    <canvas id="aquacultureChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Dashboard Footer with controls / notes -->
+            <div class="mt-4 pt-4 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <span><strong>FCR Optimization Indicator:</strong> Point of maximum slope represents maximum physiological assimilation.</span>
+                </div>
+                
+                <button id="resetView" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 py-1.5 px-3 rounded-lg transition-colors cursor-pointer">
+                    Clear Markers
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- App Footer -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-3.5 text-center px-4">
+        <p class="text-[10px] text-slate-500 tracking-wide uppercase">
+            Designed for SFM Academic Core Competency Assessment: Applied Biosystems &amp; Resource Economics, Universiti Putra Malaysia
+        </p>
+    </footer>
+
+    <script>
+        // Parameters for customized Logistic Growth Curve
+        const L = 600;    // Maximum commercial capacity limit (grams per Tilapia)
+        const k = 0.25;   // Growth velocity coefficient (growth constant)
+        const x0 = 12;    // Inflection Point / week where growth rate peaks
+
+        /**
+         * Logistic growth function modeling weight
+         * f(x) = L / (1 + exp(-k * (x - x0)))
+         */
+        function f(x) {
+            return L / (1 + Math.exp(-k * (x - x0)));
+        }
+
+        /**
+         * First Derivative of Logistic Growth using chain rule
+         * f'(x) = (L * k * exp(-k * (x-x0))) / (1 + exp(-k * (x-x0)))^2
+         */
+        function f_prime(x) {
+            const expTerm = Math.exp(-k * (x - x0));
+            return (L * k * expTerm) / Math.pow(1 + expTerm, 2);
+        }
+
+        // Generate coordinates for weeks 0 to 24 in 0.5-week intervals for smooth charting
+        const weeks = [];
+        const weightData = [];
+        const growthRateData = [];
+
+        for (let w = 0; w <= 24; w += 0.5) {
+            weeks.push(w);
+            weightData.push(f(w).toFixed(1));
+            growthRateData.push(f_prime(w).toFixed(2));
+        }
+
+        let clickedMarkerDatasetIndex = 2; // Index reserved for interactive hover overlay marker
+
+        const ctx = document.getElementById('aquacultureChart').getContext('2d');
+        const aquacultureChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: weeks,
+                datasets: [
+                    {
+                        label: 'Weight f(x) (g)',
+                        data: weightData,
+                        borderColor: '#10b981', // Emerald 500
+                        backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                        borderWidth: 3,
+                        yAxisID: 'yWeight',
+                        fill: true,
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHitRadius: 10,
+                        pointHoverBackgroundColor: '#10b981',
+                        pointHoverBorderColor: '#ffffff',
+                        pointHoverBorderWidth: 2,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: "Growth Rate f'(x) (g/wk)",
+                        data: growthRateData,
+                        borderColor: '#f59e0b', // Amber 500
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        yAxisID: 'yRate',
+                        tension: 0.1,
+                        pointRadius: 0,
+                        pointHitRadius: 10,
+                        pointHoverBackgroundColor: '#f59e0b',
+                        pointHoverBorderColor: '#ffffff',
+                        pointHoverBorderWidth: 2,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        // Hidden dynamic dataset used to render an interactive crosshair/point on evaluation clicks
+                        label: 'Selected Coord',
+                        data: [],
+                        borderColor: '#ffffff',
+                        backgroundColor: '#f59e0b',
+                        borderWidth: 2,
+                        pointRadius: 8,
+                        pointHoverRadius: 9,
+                        showLine: false,
+                        yAxisID: 'yWeight'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(51, 65, 85, 0.2)'
+                        },
+                        ticks: {
+                            color: '#94a3b8',
+                            font: { size: 10 }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Culture Timeline (Weeks in Pond Cages)',
+                            color: '#cbd5e1',
+                            font: { size: 11, weight: '600' }
+                        }
+                    },
+                    yWeight: {
+                        type: 'linear',
+                        position: 'left',
+                        min: 0,
+                        max: 650,
+                        grid: {
+                            color: 'rgba(51, 65, 85, 0.4)'
+                        },
+                        ticks: {
+                            color: '#10b981',
+                            font: { size: 10 }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Individual Fish Weight (g)',
+                            color: '#10b981',
+                            font: { size: 11, weight: '600' }
+                        }
+                    },
+                    yRate: {
+                        type: 'linear',
+                        position: 'right',
+                        min: 0,
+                        max: 45,
+                        grid: {
+                            drawOnChartArea: false // Prevent grid lines intersecting left side axis
+                        },
+                        ticks: {
+                            color: '#f59e0b',
+                            font: { size: 10 }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Instantaneous Growth Rate (g/Week)',
+                            color: '#f59e0b',
+                            font: { size: 11, weight: '600' }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Using custom legends inside HTML layout header
+                    },
+                    tooltip: {
+                        backgroundColor: '#020617',
+                        titleColor: '#f8fafc',
+                        bodyColor: '#cbd5e1',
+                        borderColor: '#1e293b',
+                        borderWidth: 1,
+                        padding: 10,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label === 'Selected Coord') return '';
+                                if (context.parsed.y !== null) {
+                                    label += ': ' + context.parsed.y;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                // Handle chart canvas coordinates clicks
+                onClick: (event, activeElements) => {
+                    handleChartClick(event, activeElements);
+                }
+            }
+        });
+
+        /**
+         * Evaluates clicked point coordinates to derive values and generate dynamic bio explanations
+         */
+        function handleChartClick(event, activeElements) {
+            // Check if user clicked on active lines or points, fallback to converting coordinates
+            let weekValue = 12; // default fallback midpoint
+            
+            if (activeElements.length > 0) {
+                const index = activeElements[0].index;
+                weekValue = weeks[index];
+            } else {
+                // Approximate coordinate mapping fallback if user clicks on empty space within grid
+                const chartArea = aquacultureChart.chartArea;
+                const xVal = aquacultureChart.scales.x.getValueForPixel(event.x);
+                if (xVal !== undefined && xVal >= 0 && xVal <= 24) {
+                    // Match nearest week coordinate step of 0.5
+                    weekValue = Math.round(xVal * 2) / 2;
+                } else {
+                    return; // coordinate click is outside bounding parameters
+                }
+            }
+
+            evaluateGrowthDataAtPoint(weekValue);
+        }
+
+        /**
+         * Calculates derivative and outputs matching layout explanations based on dynamic ranges
+         */
+        function evaluateGrowthDataAtPoint(week) {
+            const currentWeight = f(week);
+            const growthRate = f_prime(week);
+
+            // Update user interface text metrics
+            document.getElementById('displayWeek').innerText = `Week ${week.toFixed(1)}`;
+            document.getElementById('displayWeight').innerText = `${currentWeight.toFixed(1)} grams`;
+            document.getElementById('displayVelocity').innerText = `${growthRate.toFixed(2)} g/week`;
+            document.getElementById('slopeFormula').innerText = `f'(${week.toFixed(1)}) = ${growthRate.toFixed(2)}`;
+
+            // Biological Interpretation Matrix based on derivative and inflection thresholds
+            let bioLaymanText = "";
+            let cardColor = "from-slate-950 to-emerald-950";
+            let borderStyle = "border-slate-800";
+
+            if (week < 6) {
+                // Lag Phase (Low Weight, low rate of change)
+                bioLaymanText = `<strong>Lag Phase:</strong> The juvenile tilapia are small and metabolizing slower in absolute mass. The growth rate is only ${growthRate.toFixed(1)}g per week. Provide starter crumble feed with 32% crude protein, but strictly monitor feeding volumes to avoid nutrient run-off into Pahang River.`;
+                cardColor = "from-slate-950 to-slate-900";
+            } 
+            else if (week >= 6 && week < 11) {
+                // Acceleration Phase (Rising Weight, rapidly increasing rate of change)
+                bioLaymanText = `<strong>Acceleration Phase:</strong> Highly efficient metabolic window! Growth velocity is expanding weekly. At Week ${week.toFixed(1)}, each fish adds ${growthRate.toFixed(1)}g. Support this acceleration with progressive feeding rates to optimize Feed Conversion Efficiency (FCR).`;
+                cardColor = "from-slate-950 to-emerald-950";
+            } 
+            else if (Math.abs(week - 12) < 0.5) {
+                // Inflection Point / Peak Velocity
+                bioLaymanText = `<strong>INFLECTION POINT (Peak Metabolic Rate):</strong> The growth velocity is at its absolute peak of ${growthRate.toFixed(2)}g/week! Weight is perfectly balanced at 300g (half of asymptote). This is the absolute peak absorption phase. Maximize feed delivery now to utilize metabolic momentum.`;
+                cardColor = "from-slate-950 to-amber-950";
+                borderStyle = "border-amber-500/40";
+            } 
+            else if (week >= 13 && week < 18) {
+                // Deceleration Phase (High Weight, decreasing rate of change)
+                bioLaymanText = `<strong>Deceleration Phase:</strong> Biomass is high (${currentWeight.toFixed(0)}g) but growth velocity has slipped back down to ${growthRate.toFixed(1)}g/week. Tilapia allocation of biological energy is shifting towards territorial behaviors and gonad maturation rather than frame/muscle growth. Reducing feeds slightly is economical.`;
+                cardColor = "from-slate-950 to-slate-950";
+            } 
+            else {
+                // Plateau Phase / Harvest Decision (Asymptotic weight limit, negligible derivative)
+                bioLaymanText = `<strong>Harvest Plateau:</strong> Growth velocity has bottomed out below 12.0g/week. The fish are close to maximum commercial capacity (~${currentWeight.toFixed(0)}g). Keeping the fish longer increases mortality risks and wastes feed. <strong>INITIATE COMMERCIAL HARVEST immediately</strong> to optimize profit margin.`;
+                cardColor = "from-slate-950 to-rose-950/40";
+                borderStyle = "border-rose-500/30";
+            }
+
+            // Apply style transitions and update layout elements
+            const card = document.getElementById('interactiveCard');
+            card.className = `bg-gradient-to-br ${cardColor} border-2 ${borderStyle} rounded-2xl p-5 shadow-2xl relative overflow-hidden transition-all duration-300`;
+            
+            document.getElementById('laymanExplanation').innerHTML = bioLaymanText;
+            document.getElementById('readoutPrompt').classList.add('hidden');
+            document.getElementById('readoutData').classList.remove('hidden');
+
+            // Draw indicator point on Chart
+            aquacultureChart.data.datasets[clickedMarkerDatasetIndex].data = weeks.map(w => w === week ? currentWeight : null);
+            aquacultureChart.update();
+        }
+
+        // Handle interactive resets
+        document.getElementById('resetView').addEventListener('click', () => {
+            aquacultureChart.data.datasets[clickedMarkerDatasetIndex].data = [];
+            aquacultureChart.update();
+            document.getElementById('readoutData').classList.add('hidden');
+            document.getElementById('readoutPrompt').classList.remove('hidden');
+            document.getElementById('interactiveCard').className = "bg-gradient-to-br from-slate-950 to-emerald-950 border-2 border-slate-800 rounded-2xl p-5 shadow-2xl relative overflow-hidden transition-all duration-300";
+        });
+    </script>
